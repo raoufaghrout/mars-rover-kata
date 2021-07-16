@@ -1,8 +1,15 @@
-export const rightDirection = new Map<string, string>([
+const turnRight = new Map<string, string>([
   ["N", "E"],
   ["E", "S"],
   ["S", "W"],
   ["W", "N"],
+]);
+
+const turnLeft = new Map<string, string>([
+  ["N", "W"],
+  ["E", "N"],
+  ["S", "E"],
+  ["W", "S"],
 ]);
 
 export class MarsRover {
@@ -16,10 +23,23 @@ export class MarsRover {
     if (commands === "R") {
       this.turnRight();
     }
+
+    if (commands === "L") {
+      this.turnLeft();
+    }
   }
 
   private turnRight() {
-    const direction = rightDirection.get(this.direction);
+    const direction = turnRight.get(this.direction);
+
+    if (direction) {
+      this.direction = direction;
+    }
+  }
+
+  private turnLeft() {
+    const direction = turnLeft.get(this.direction);
+
     if (direction) {
       this.direction = direction;
     }

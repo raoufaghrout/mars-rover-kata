@@ -22,7 +22,7 @@ describe("MarsRover", () => {
     ["E", "0 0 S"],
     ["S", "0 0 W"],
     ["W", "0 0 N"],
-  ])("should turn right", (initialDirection, expectedPosition) => {
+  ])("should turn right when facing %s", (initialDirection, expectedPosition) => {
     const marsRover = new MarsRover(0, 0, initialDirection);
     marsRover.execute("R");
 
@@ -30,8 +30,13 @@ describe("MarsRover", () => {
     expect(position).toBe(expectedPosition);
   });
 
-  it.each([["N", "0 0 W"]])(
-    "should turn left",
+  it.each([
+      ["N", "0 0 W"],
+      ["E", "0 0 N"],
+      ["S", "0 0 E"],
+      ["W", "0 0 S"],
+  ])(
+    "should turn left when facing %s",
     (initialDirection, expectedPosition) => {
       const marsRover = new MarsRover(0, 0, initialDirection);
       marsRover.execute("L");
