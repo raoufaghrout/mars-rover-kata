@@ -32,4 +32,12 @@ describe("MarsRover", () => {
     const position = marsRover.toString();
     expect(position).toBe("0 0 S");
   });
+
+  it("should turn right from S to W", () => {
+    const marsRover = new MarsRover(0, 0, "S");
+    marsRover.execute("R");
+
+    const position = marsRover.toString();
+    expect(position).toBe("0 0 W");
+  });
 });

@@ -7,7 +7,15 @@ export class MarsRover {
 
   execute(commands: string) {
     if (commands === "R") {
+      this.turnRight();
+    }
+  }
+
+  private turnRight() {
+    if (this.direction === "N") {
       this.direction = "E";
+    } else if (this.direction === "E") {
+      this.direction = "S";
     }
   }
 
