@@ -1,3 +1,10 @@
+export const rightDirection = new Map<string, string>([
+  ["N", "E"],
+  ["E", "S"],
+  ["S", "W"],
+  ["W", "N"],
+]);
+
 export class MarsRover {
   constructor(
     private xCoordinate: number,
@@ -12,10 +19,9 @@ export class MarsRover {
   }
 
   private turnRight() {
-    if (this.direction === "N") {
-      this.direction = "E";
-    } else if (this.direction === "E") {
-      this.direction = "S";
+    const direction = rightDirection.get(this.direction);
+    if (direction) {
+      this.direction = direction;
     }
   }
 

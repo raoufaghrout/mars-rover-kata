@@ -17,27 +17,27 @@ describe("MarsRover", () => {
     expect(position).toBe("5 1 E");
   });
 
-  it("should turn right from N to E", () => {
-    const marsRover = new MarsRover(0, 0, "N");
+  it.each([
+    ["N", "0 0 E"],
+    ["E", "0 0 S"],
+    ["S", "0 0 W"],
+    ["W", "0 0 N"],
+  ])("should turn right", (initialDirection, expectedPosition) => {
+    const marsRover = new MarsRover(0, 0, initialDirection);
     marsRover.execute("R");
 
     const position = marsRover.toString();
-    expect(position).toBe("0 0 E");
+    expect(position).toBe(expectedPosition);
   });
 
-  it("should turn right from E to S", () => {
-    const marsRover = new MarsRover(0, 0, "E");
-    marsRover.execute("R");
+  it.each([["N", "0 0 W"]])(
+    "should turn left",
+    (initialDirection, expectedPosition) => {
+      const marsRover = new MarsRover(0, 0, initialDirection);
+      marsRover.execute("L");
 
-    const position = marsRover.toString();
-    expect(position).toBe("0 0 S");
-  });
-
-  it("should turn right from S to W", () => {
-    const marsRover = new MarsRover(0, 0, "S");
-    marsRover.execute("R");
-
-    const position = marsRover.toString();
-    expect(position).toBe("0 0 W");
-  });
+      const position = marsRover.toString();
+      expect(position).toBe(expectedPosition);
+    }
+  );
 });
