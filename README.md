@@ -1,40 +1,46 @@
-# How to use this repo during the training
+Mars Rover
+==========
 
-1. Navigate to the repo here [https://github.com/codurance/academy-walking-1-typescript-base-jest](https://github.com/codurance/academy-walking-1-typescript-base-jest)
-2. Click the Fork button from the top right corner of the page
-3. Chose to fork the code to your personal github account
-4. You can rename the github repo to the kata name from the Settings tab. e.g. fizzbuzz-kata
-5. Clone the code from the forked repository:
-```bash
-git clone git@github.com:<youGithubHandle>/fizzbuzz.git
-cd fizzbuzz
-npm install
-```
-6. You can rename the github repo to the kata name from the Settings tab
-7. Copy and paste the bash instructions to the team so they can use your forked repo
+A squad of robotic rovers are to be landed by NASA on a plateau on Mars. This plateau, which is curiously rectangular,
+must be navigated by the rovers so that their on-board cameras can get a complete view of the surrounding terrain to
+send back to Earth.
 
+A rover’s position and location is represented by a combination of x and y co-ordinates and a letter representing one of
+the four cardinal compass points. The plateau is divided up into a grid to simplify navigation. An example position
+might be 0, 0, N, which means the rover is in the bottom left corner and facing North.
 
-# Typescript + Jest Kata Seed
+In order to control a rover, NASA sends a simple string of letters. The possible letters are ‘L’, ‘R’ and ‘M’. ‘L’ and ‘R’
+makes the rover spin 90 degrees left or right respectively, without moving from its current spot. ‘M’ means move forward
+one grid point, and maintain the same heading.
 
-## Install & Run All tests
-`npm i`
+Assume that the square directly North from (x, y) is (x, y+1).
 
-`npm test`
+Input: The first line of input is the upper-right coordinates of the plateau, the lower-left coordinates are assumed to
+be 0,0.
 
-## Only run specific Kata unit test
-`npm test <name of test>` (per describe block)
+The rest of the input is information pertaining to the rovers that have been deployed. Each rover has two lines of
+input. The first line gives the rover’s position, and the second line is a series of instructions telling the rover how
+to explore the plateau.
 
+The position is made up of two integers and a letter separated by spaces, corresponding to the x and y co-ordinates and
+the rover’s orientation.
 
-ie: `npm test example`
+Each rover will be finished sequentially, which means that the second rover won’t start to move until the first one has
+finished moving.
 
-## Watch a specific Kata unit test
+Output: The output for each rover should be its final co-ordinates and heading.
 
-`npm run test:watch <name of test>`
+Input and Output
 
+# Test Input:
 
-ie: `npm run test:watch example`
+5 5
+1 2 N
+LMLMLMLMM
+3 3 E
+MMRMMRMRRM
 
+# Expected Output:
 
-## Watch All tests
-
-`npm run test:watch-all`
+1 3 N
+5 1 E
