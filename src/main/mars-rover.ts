@@ -1,22 +1,87 @@
-const turnRight = new Map<string, string>([
-  ["N", "E"],
-  ["E", "S"],
-  ["S", "W"],
-  ["W", "N"],
-]);
+export interface Direction {
+  turnRight(): Direction;
+  turnLeft(): Direction;
+  moveForward(xCoordinate: number, yCoordinate: number): [number, number];
+  toString(): string;
+}
 
-const turnLeft = new Map<string, string>([
-  ["N", "W"],
-  ["E", "N"],
-  ["S", "E"],
-  ["W", "S"],
-]);
+export class WestDirection implements Direction {
+  moveForward(xCoordinate: number, yCoordinate: number): [number, number] {
+    return [xCoordinate - 1, yCoordinate];
+  }
+
+  turnLeft(): Direction {
+    return new SouthDirection();
+  }
+
+  turnRight(): Direction {
+    return new NorthDirection();
+  }
+
+  toString(): string {
+    return "W";
+  }
+}
+
+export class SouthDirection implements Direction {
+  moveForward(xCoordinate: number, yCoordinate: number): [number, number] {
+    return [xCoordinate, yCoordinate - 1];
+  }
+
+  turnLeft(): Direction {
+    return new EastDirection();
+  }
+
+  turnRight(): Direction {
+    return new WestDirection();
+  }
+
+  toString(): string {
+    return "S";
+  }
+}
+
+export class EastDirection implements Direction {
+  moveForward(xCoordinate: number, yCoordinate: number): [number, number] {
+    return [xCoordinate + 1, yCoordinate];
+  }
+
+  turnLeft(): Direction {
+    return new NorthDirection();
+  }
+
+  turnRight(): Direction {
+    return new SouthDirection();
+  }
+
+  toString(): string {
+    return "E";
+  }
+}
+
+export class NorthDirection implements Direction {
+  moveForward(xCoordinate: number, yCoordinate: number): [number, number] {
+    return [xCoordinate, yCoordinate + 1];
+  }
+
+  turnLeft(): Direction {
+    return new WestDirection();
+  }
+
+  turnRight(): Direction {
+    return new EastDirection();
+  }
+
+  toString(): string {
+    return "N";
+  }
+}
 
 export class MarsRover {
   constructor(
     private xCoordinate: number,
     private yCoordinate: number,
-    private direction: string
+    private direction: Direction,
   ) {}
 
   execute(commands: string) {
@@ -27,22 +92,24 @@ export class MarsRover {
     if (commands === "L") {
       this.turnLeft();
     }
+
+    if (commands === "M") {
+      this.moveForward();
+    }
   }
 
   private turnRight() {
-    const direction = turnRight.get(this.direction);
-
-    if (direction) {
-      this.direction = direction;
-    }
+    this.direction = this.direction.turnRight();
   }
 
   private turnLeft() {
-    const direction = turnLeft.get(this.direction);
+    this.direction = this.direction.turnLeft();
+  }
 
-    if (direction) {
-      this.direction = direction;
-    }
+  private moveForward() {
+    const coordinates = this.direction.moveForward(this.xCoordinate, this.yCoordinate);
+    this.xCoordinate = coordinates[0]
+    this.yCoordinate = coordinates[1]
   }
 
   toString(): string {
