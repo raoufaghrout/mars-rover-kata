@@ -71,4 +71,13 @@ describe("MarsRover", () => {
       expect(position).toBe(expectedPosition);
     }
   );
+
+    it("should undo the move left command ", () => {
+        const marsRover = new MarsRover({ x: 0, y: 0 }, new NorthDirection());
+        marsRover.execute("LU");
+
+        const position = marsRover.toString();
+        expect(position).toBe("0 0 N");
+    });
+
 });
