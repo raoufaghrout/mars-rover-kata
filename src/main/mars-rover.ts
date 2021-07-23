@@ -103,6 +103,10 @@ export class MarsRover {
     if (this.shouldMoveForward(command)) {
       this.moveForward();
     }
+
+    if (command === "U") {
+      this.turnRight();
+    }
   }
 
   private shouldTurnRight(command: string) {

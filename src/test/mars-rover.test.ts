@@ -72,12 +72,16 @@ describe("MarsRover", () => {
     }
   );
 
-    it("should undo the move left command ", () => {
+    it.each([
+        ["LU", "0 0 N"],
+        ["RU", "0 0 N"],
+    ])(
+        "should move forward when facing %s",
+        (commands, expectedPosition) => {
         const marsRover = new MarsRover({ x: 0, y: 0 }, new NorthDirection());
-        marsRover.execute("LU");
+        marsRover.execute(commands);
 
         const position = marsRover.toString();
-        expect(position).toBe("0 0 N");
+        expect(position).toBe(expectedPosition);
     });
-
 });
