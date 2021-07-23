@@ -8,7 +8,7 @@ import {
 } from "../main/mars-rover";
 
 describe("MarsRover", () => {
-  xit("should move first Rover", () => {
+  it("should move first Rover", () => {
     const marsRover = new MarsRover({ x: 1, y: 2 }, new NorthDirection());
     marsRover.execute("LMLMLMLMM");
 
@@ -16,7 +16,7 @@ describe("MarsRover", () => {
     expect(position).toBe("1 3 N");
   });
 
-  xit("should move second Rover", () => {
+  it("should move second Rover", () => {
     const marsRover = new MarsRover({ x: 3, y: 3 }, new EastDirection());
     marsRover.execute("MMRMMRMRRM");
 

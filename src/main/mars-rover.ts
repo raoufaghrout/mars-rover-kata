@@ -86,25 +86,43 @@ export class MarsRover {
   constructor(private coordinates: Coordinates, private direction: Direction) {}
 
   execute(commands: string) {
-    if (commands === "R") {
+    commands.split('').forEach((command: string) => {
+      this.manageRoverCommand(command);
+    });
+  }
+
+  private manageRoverCommand(command: string) {
+    if (this.shouldTurnRight(command)) {
       this.turnRight();
     }
 
-    if (commands === "L") {
+    if (this.shouldTurnLeft(command)) {
       this.turnLeft();
     }
 
-    if (commands === "M") {
+    if (this.shouldMoveForward(command)) {
       this.moveForward();
     }
+  }
+
+  private shouldTurnRight(command: string) {
+    return command === "R";
   }
 
   private turnRight() {
     this.direction = this.direction.turnRight();
   }
 
+  private shouldTurnLeft(command: string) {
+    return command === "L";
+  }
+
   private turnLeft() {
     this.direction = this.direction.turnLeft();
+  }
+
+  private shouldMoveForward(command: string) {
+    return command === "M";
   }
 
   private moveForward() {
