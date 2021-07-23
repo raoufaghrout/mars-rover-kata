@@ -83,11 +83,15 @@ export class NorthDirection implements Direction {
 }
 
 export class MarsRover {
-  constructor(private coordinates: Coordinates, private direction: Direction) {}
+  private lastPosition: string;
+  constructor(private coordinates: Coordinates, private direction: Direction) {
+    this.lastPosition = "";
+  }
 
   execute(commands: string) {
-    commands.split('').forEach((command: string) => {
+    commands.split("").forEach((command: string) => {
       this.manageRoverCommand(command);
+      this.lastPosition = command;
     });
   }
 
@@ -104,8 +108,12 @@ export class MarsRover {
       this.moveForward();
     }
 
-    if (command === "U") {
+    if (command === "U" && this.lastPosition === "L") {
       this.turnRight();
+    }
+
+    if (command === "U" && this.lastPosition === "R") {
+      this.turnLeft();
     }
   }
 

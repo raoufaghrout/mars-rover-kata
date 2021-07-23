@@ -72,16 +72,15 @@ describe("MarsRover", () => {
     }
   );
 
-    it.each([
-        ["LU", "0 0 N"],
-        ["RU", "0 0 N"],
-    ])(
-        "should move forward when facing %s",
-        (commands, expectedPosition) => {
-        const marsRover = new MarsRover({ x: 0, y: 0 }, new NorthDirection());
-        marsRover.execute(commands);
+  it.each([
+    ["LU", "1 1 N"],
+    ["RU", "1 1 N"],
+    ["MU", "1 1 N"],
+  ])("should move forward when facing %s", (commands, expectedPosition) => {
+    const marsRover = new MarsRover({ x: 1, y: 1 }, new NorthDirection());
+    marsRover.execute(commands);
 
-        const position = marsRover.toString();
-        expect(position).toBe(expectedPosition);
-    });
+    const position = marsRover.toString();
+    expect(position).toBe(expectedPosition);
+  });
 });
