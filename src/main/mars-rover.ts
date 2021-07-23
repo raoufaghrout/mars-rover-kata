@@ -1,13 +1,18 @@
+interface Coordinates {
+  x: number;
+  y: number;
+}
+
 export interface Direction {
   turnRight(): Direction;
   turnLeft(): Direction;
-  moveForward(xCoordinate: number, yCoordinate: number): [number, number];
+  moveForward(coordinates: Coordinates): Coordinates;
   toString(): string;
 }
 
 export class WestDirection implements Direction {
-  moveForward(xCoordinate: number, yCoordinate: number): [number, number] {
-    return [xCoordinate - 1, yCoordinate];
+  moveForward(coordinates: Coordinates): Coordinates {
+    return { x: coordinates.x - 1, y: coordinates.y };
   }
 
   turnLeft(): Direction {
@@ -24,8 +29,8 @@ export class WestDirection implements Direction {
 }
 
 export class SouthDirection implements Direction {
-  moveForward(xCoordinate: number, yCoordinate: number): [number, number] {
-    return [xCoordinate, yCoordinate - 1];
+  moveForward(coordinates: Coordinates): Coordinates {
+    return { x: coordinates.x, y: coordinates.y - 1 };
   }
 
   turnLeft(): Direction {
@@ -42,8 +47,8 @@ export class SouthDirection implements Direction {
 }
 
 export class EastDirection implements Direction {
-  moveForward(xCoordinate: number, yCoordinate: number): [number, number] {
-    return [xCoordinate + 1, yCoordinate];
+  moveForward(coordinates: Coordinates): Coordinates {
+    return { x: coordinates.x + 1, y: coordinates.y };
   }
 
   turnLeft(): Direction {
@@ -60,8 +65,8 @@ export class EastDirection implements Direction {
 }
 
 export class NorthDirection implements Direction {
-  moveForward(xCoordinate: number, yCoordinate: number): [number, number] {
-    return [xCoordinate, yCoordinate + 1];
+  moveForward(coordinates: Coordinates): Coordinates {
+    return { x: coordinates.x, y: coordinates.y + 1 };
   }
 
   turnLeft(): Direction {
@@ -78,11 +83,7 @@ export class NorthDirection implements Direction {
 }
 
 export class MarsRover {
-  constructor(
-    private xCoordinate: number,
-    private yCoordinate: number,
-    private direction: Direction,
-  ) {}
+  constructor(private coordinates: Coordinates, private direction: Direction) {}
 
   execute(commands: string) {
     if (commands === "R") {
@@ -107,12 +108,10 @@ export class MarsRover {
   }
 
   private moveForward() {
-    const coordinates = this.direction.moveForward(this.xCoordinate, this.yCoordinate);
-    this.xCoordinate = coordinates[0]
-    this.yCoordinate = coordinates[1]
+    this.coordinates = this.direction.moveForward(this.coordinates);
   }
 
   toString(): string {
-    return `${this.xCoordinate} ${this.yCoordinate} ${this.direction}`;
+    return `${this.coordinates.x} ${this.coordinates.y} ${this.direction}`;
   }
 }
