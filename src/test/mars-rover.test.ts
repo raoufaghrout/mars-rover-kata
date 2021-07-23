@@ -76,6 +76,7 @@ describe("MarsRover", () => {
     ["LU", "1 1 N"],
     ["RU", "1 1 N"],
     ["MU", "1 1 N"],
+    ["MUMU", "1 1 N"],
   ])("should move forward when facing %s", (commands, expectedPosition) => {
     const marsRover = new MarsRover({ x: 1, y: 1 }, new NorthDirection());
     marsRover.execute(commands);
